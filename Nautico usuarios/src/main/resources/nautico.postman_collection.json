@@ -1,0 +1,777 @@
+{
+	"info": {
+		"_postman_id": "dec2c1f2-3b0b-474b-9d20-f4f6537a4622",
+		"name": "nautico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34099388"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "HATEOAS",
+					"item": [
+						{
+							"name": "get user departures",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDQ5NTAwLCJpYXQiOjE3MTI0MzUxMDB9.hE-PelKQl6yXqUegfj9RvcR5rNSqHZPoGNolfCdMe0Oza_rOdbwLKk_RaY_AP9SHLAvJQX783YdGcyJaag3X7XD7qOsjrD_aVrrYKxb2F4UsjFknRAosNeQchK7bmTCGxEdUV_XK9itIkC1Pryz-zB7AGRsInZ_3MIZouCw9Z0ZXlYc0nAdqano15TmvOXI7_lHdkhmOlscffZVrqoBVly3emJHEvIpdka7J6OYbX2Xnyplsp-swPywgfQ3clEJth5GHLrtcRvxsz97NdnkYKyOngCAiZJM_xVrva7a5PmoTQrYU6rco_U5qiZFH7O9TZDKPcaAlwvv0EIhnCwu5XA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/user/1/departures",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"1",
+										"departures"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get all users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDQ5NTAwLCJpYXQiOjE3MTI0MzUxMDB9.hE-PelKQl6yXqUegfj9RvcR5rNSqHZPoGNolfCdMe0Oza_rOdbwLKk_RaY_AP9SHLAvJQX783YdGcyJaag3X7XD7qOsjrD_aVrrYKxb2F4UsjFknRAosNeQchK7bmTCGxEdUV_XK9itIkC1Pryz-zB7AGRsInZ_3MIZouCw9Z0ZXlYc0nAdqano15TmvOXI7_lHdkhmOlscffZVrqoBVly3emJHEvIpdka7J6OYbX2Xnyplsp-swPywgfQ3clEJth5GHLrtcRvxsz97NdnkYKyOngCAiZJM_xVrva7a5PmoTQrYU6rco_U5qiZFH7O9TZDKPcaAlwvv0EIhnCwu5XA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDQ5NTAwLCJpYXQiOjE3MTI0MzUxMDB9.hE-PelKQl6yXqUegfj9RvcR5rNSqHZPoGNolfCdMe0Oza_rOdbwLKk_RaY_AP9SHLAvJQX783YdGcyJaag3X7XD7qOsjrD_aVrrYKxb2F4UsjFknRAosNeQchK7bmTCGxEdUV_XK9itIkC1Pryz-zB7AGRsInZ_3MIZouCw9Z0ZXlYc0nAdqano15TmvOXI7_lHdkhmOlscffZVrqoBVly3emJHEvIpdka7J6OYbX2Xnyplsp-swPywgfQ3clEJth5GHLrtcRvxsz97NdnkYKyOngCAiZJM_xVrva7a5PmoTQrYU6rco_U5qiZFH7O9TZDKPcaAlwvv0EIhnCwu5XA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNTEyODU4LCJpYXQiOjE3MTI0OTg0NTh9.Km-xU2S1yWN0xbM-hwGi4S8hUUo_5DNGdjk8xkYVqnC_vqWqD2pvBPneezmpLSceBDYvzAJ16ASAiiKfL1fnNI1TGudQePiM64HckRl_JZ9GQTMWoJzBd2iVwgTzFpK4eRjs1MrA6z_UolXklm-KZNsxEG8SD7ZHmSiwQTRxFoaQCAWSqwmk3T3fA2Fn_mSOGDlG8DRllVr0Yx8kIh3N9I06Nuhr8BnLHcy6XKiG9rG5wF2PUNCgZ-t_pvQuHMBfCchqExe1_ommVuJhAkzE6v0V4KxH3L3DPrzymwvukko8T0E0IkKYRu3euPAyAEQN0OC4PbnvvckFMO7rqgR-Xg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Antonio\",\r\n    \"lastName\" : \"Gonzalez\",\r\n    \"email\" : \"ant@onio.com\",\r\n    \"password\" : \"conTaseñ@1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update password by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNTEyODU4LCJpYXQiOjE3MTI0OTg0NTh9.Km-xU2S1yWN0xbM-hwGi4S8hUUo_5DNGdjk8xkYVqnC_vqWqD2pvBPneezmpLSceBDYvzAJ16ASAiiKfL1fnNI1TGudQePiM64HckRl_JZ9GQTMWoJzBd2iVwgTzFpK4eRjs1MrA6z_UolXklm-KZNsxEG8SD7ZHmSiwQTRxFoaQCAWSqwmk3T3fA2Fn_mSOGDlG8DRllVr0Yx8kIh3N9I06Nuhr8BnLHcy6XKiG9rG5wF2PUNCgZ-t_pvQuHMBfCchqExe1_ommVuJhAkzE6v0V4KxH3L3DPrzymwvukko8T0E0IkKYRu3euPAyAEQN0OC4PbnvvckFMO7rqgR-Xg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "Contr@123",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove user by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNTEyODU4LCJpYXQiOjE3MTI0OTg0NTh9.Km-xU2S1yWN0xbM-hwGi4S8hUUo_5DNGdjk8xkYVqnC_vqWqD2pvBPneezmpLSceBDYvzAJ16ASAiiKfL1fnNI1TGudQePiM64HckRl_JZ9GQTMWoJzBd2iVwgTzFpK4eRjs1MrA6z_UolXklm-KZNsxEG8SD7ZHmSiwQTRxFoaQCAWSqwmk3T3fA2Fn_mSOGDlG8DRllVr0Yx8kIh3N9I06Nuhr8BnLHcy6XKiG9rG5wF2PUNCgZ-t_pvQuHMBfCchqExe1_ommVuJhAkzE6v0V4KxH3L3DPrzymwvukko8T0E0IkKYRu3euPAyAEQN0OC4PbnvvckFMO7rqgR-Xg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "members",
+			"item": [
+				{
+					"name": "HATEOAS",
+					"item": [
+						{
+							"name": "get member ships",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDQ5NTAwLCJpYXQiOjE3MTI0MzUxMDB9.hE-PelKQl6yXqUegfj9RvcR5rNSqHZPoGNolfCdMe0Oza_rOdbwLKk_RaY_AP9SHLAvJQX783YdGcyJaag3X7XD7qOsjrD_aVrrYKxb2F4UsjFknRAosNeQchK7bmTCGxEdUV_XK9itIkC1Pryz-zB7AGRsInZ_3MIZouCw9Z0ZXlYc0nAdqano15TmvOXI7_lHdkhmOlscffZVrqoBVly3emJHEvIpdka7J6OYbX2Xnyplsp-swPywgfQ3clEJth5GHLrtcRvxsz97NdnkYKyOngCAiZJM_xVrva7a5PmoTQrYU6rco_U5qiZFH7O9TZDKPcaAlwvv0EIhnCwu5XA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/member/1/ships",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"member",
+										"1",
+										"ships"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get all members",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDA5MzczLCJpYXQiOjE3MTIzOTQ5NzN9.Kdak8Lq8lKHfWTM3gDKnBuvIEATFK4iCnOuZoUE5-G4RLoY7s7GqArWD-NSHrgV32apXqN2zLEY8absoIwsYTyhhBeMeH3RSNHCfpEjmZgutcgcgieEiJB6mTis3FYZOC9PJnea_BZc1fbFrzc14XD1hxImqi1zR4rlyn57snRC5aGXlocfZoCF_-YuKjt0sP-gxnnh4d1MCpkQwgPYAz5pqtSD4ihAvyZXPE3-bSHikBKTu0C9rVulRdmu9In_uDCfFYyCftrsumBa_8c7_ENPp3Mc3cGnfRb8IOxmzOqhGbrwfijU7-0PeNRU9ukmzPEa1GU36wTwNbTcam_K_VA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/member",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"member"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get member by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDI0NzAwLCJpYXQiOjE3MTI0MTAzMDB9.tT7Tm8dihCEzaoR5qmf4BQABJyGp-au-uDFWR30iPMV4fdlmM0y1zKRzmYoNGTRoLdqk9TF5CXhtjjvGcja-IpTPthucHiklEE5rCS8tBZuto6jqKA3gjA4hsXsvdT8ilk_DCQon1ir-7_W27H-ZHWNsMc86pVtMDWJS-ouRAxGoZCrlgYcH1DqZMYjnpj3x8gSALp_A8z8fqbDiMzy-iSJZXT8dyOq4daxTnpXmuixKgHxKIHIVowdeUEaGZgydlzuXDoYvhuUg4poDmTr1xIIUYBlNbTnheFqeoDQE_ymg6SDZr3y4FxM5xGoRq0m089maGP_DdVXmPphRGmi5XA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/member/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"member",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create member",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDA5MzczLCJpYXQiOjE3MTIzOTQ5NzN9.Kdak8Lq8lKHfWTM3gDKnBuvIEATFK4iCnOuZoUE5-G4RLoY7s7GqArWD-NSHrgV32apXqN2zLEY8absoIwsYTyhhBeMeH3RSNHCfpEjmZgutcgcgieEiJB6mTis3FYZOC9PJnea_BZc1fbFrzc14XD1hxImqi1zR4rlyn57snRC5aGXlocfZoCF_-YuKjt0sP-gxnnh4d1MCpkQwgPYAz5pqtSD4ihAvyZXPE3-bSHikBKTu0C9rVulRdmu9In_uDCfFYyCftrsumBa_8c7_ENPp3Mc3cGnfRb8IOxmzOqhGbrwfijU7-0PeNRU9ukmzPEa1GU36wTwNbTcam_K_VA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/member/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"member",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete member",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDA5MzczLCJpYXQiOjE3MTIzOTQ5NzN9.Kdak8Lq8lKHfWTM3gDKnBuvIEATFK4iCnOuZoUE5-G4RLoY7s7GqArWD-NSHrgV32apXqN2zLEY8absoIwsYTyhhBeMeH3RSNHCfpEjmZgutcgcgieEiJB6mTis3FYZOC9PJnea_BZc1fbFrzc14XD1hxImqi1zR4rlyn57snRC5aGXlocfZoCF_-YuKjt0sP-gxnnh4d1MCpkQwgPYAz5pqtSD4ihAvyZXPE3-bSHikBKTu0C9rVulRdmu9In_uDCfFYyCftrsumBa_8c7_ENPp3Mc3cGnfRb8IOxmzOqhGbrwfijU7-0PeNRU9ukmzPEa1GU36wTwNbTcam_K_VA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/member/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"member",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ships",
+			"item": [
+				{
+					"name": "HEATEOAS",
+					"item": [
+						{
+							"name": "get ship departures",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDQ5NTAwLCJpYXQiOjE3MTI0MzUxMDB9.hE-PelKQl6yXqUegfj9RvcR5rNSqHZPoGNolfCdMe0Oza_rOdbwLKk_RaY_AP9SHLAvJQX783YdGcyJaag3X7XD7qOsjrD_aVrrYKxb2F4UsjFknRAosNeQchK7bmTCGxEdUV_XK9itIkC1Pryz-zB7AGRsInZ_3MIZouCw9Z0ZXlYc0nAdqano15TmvOXI7_lHdkhmOlscffZVrqoBVly3emJHEvIpdka7J6OYbX2Xnyplsp-swPywgfQ3clEJth5GHLrtcRvxsz97NdnkYKyOngCAiZJM_xVrva7a5PmoTQrYU6rco_U5qiZFH7O9TZDKPcaAlwvv0EIhnCwu5XA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/ship/1/departures",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"ship",
+										"1",
+										"departures"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get all ships",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDI0NzAwLCJpYXQiOjE3MTI0MTAzMDB9.tT7Tm8dihCEzaoR5qmf4BQABJyGp-au-uDFWR30iPMV4fdlmM0y1zKRzmYoNGTRoLdqk9TF5CXhtjjvGcja-IpTPthucHiklEE5rCS8tBZuto6jqKA3gjA4hsXsvdT8ilk_DCQon1ir-7_W27H-ZHWNsMc86pVtMDWJS-ouRAxGoZCrlgYcH1DqZMYjnpj3x8gSALp_A8z8fqbDiMzy-iSJZXT8dyOq4daxTnpXmuixKgHxKIHIVowdeUEaGZgydlzuXDoYvhuUg4poDmTr1xIIUYBlNbTnheFqeoDQE_ymg6SDZr3y4FxM5xGoRq0m089maGP_DdVXmPphRGmi5XA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/ship",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"ship"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get ship by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDA5MzczLCJpYXQiOjE3MTIzOTQ5NzN9.Kdak8Lq8lKHfWTM3gDKnBuvIEATFK4iCnOuZoUE5-G4RLoY7s7GqArWD-NSHrgV32apXqN2zLEY8absoIwsYTyhhBeMeH3RSNHCfpEjmZgutcgcgieEiJB6mTis3FYZOC9PJnea_BZc1fbFrzc14XD1hxImqi1zR4rlyn57snRC5aGXlocfZoCF_-YuKjt0sP-gxnnh4d1MCpkQwgPYAz5pqtSD4ihAvyZXPE3-bSHikBKTu0C9rVulRdmu9In_uDCfFYyCftrsumBa_8c7_ENPp3Mc3cGnfRb8IOxmzOqhGbrwfijU7-0PeNRU9ukmzPEa1GU36wTwNbTcam_K_VA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/ship/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"ship",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create ship for member",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDA5MzczLCJpYXQiOjE3MTIzOTQ5NzN9.Kdak8Lq8lKHfWTM3gDKnBuvIEATFK4iCnOuZoUE5-G4RLoY7s7GqArWD-NSHrgV32apXqN2zLEY8absoIwsYTyhhBeMeH3RSNHCfpEjmZgutcgcgieEiJB6mTis3FYZOC9PJnea_BZc1fbFrzc14XD1hxImqi1zR4rlyn57snRC5aGXlocfZoCF_-YuKjt0sP-gxnnh4d1MCpkQwgPYAz5pqtSD4ihAvyZXPE3-bSHikBKTu0C9rVulRdmu9In_uDCfFYyCftrsumBa_8c7_ENPp3Mc3cGnfRb8IOxmzOqhGbrwfijU7-0PeNRU9ukmzPEa1GU36wTwNbTcam_K_VA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"registration\": \"BB-2222-BB\",\r\n    \"name\": \"coBar\",\r\n    \"mooringNumber\": \"1\",\r\n    \"fee\": \"100\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/ship/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"ship",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete ship",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/ship/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"ship",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "departures",
+			"item": [
+				{
+					"name": "get all departures",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDQ5NTAwLCJpYXQiOjE3MTI0MzUxMDB9.hE-PelKQl6yXqUegfj9RvcR5rNSqHZPoGNolfCdMe0Oza_rOdbwLKk_RaY_AP9SHLAvJQX783YdGcyJaag3X7XD7qOsjrD_aVrrYKxb2F4UsjFknRAosNeQchK7bmTCGxEdUV_XK9itIkC1Pryz-zB7AGRsInZ_3MIZouCw9Z0ZXlYc0nAdqano15TmvOXI7_lHdkhmOlscffZVrqoBVly3emJHEvIpdka7J6OYbX2Xnyplsp-swPywgfQ3clEJth5GHLrtcRvxsz97NdnkYKyOngCAiZJM_xVrva7a5PmoTQrYU6rco_U5qiZFH7O9TZDKPcaAlwvv0EIhnCwu5XA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/departure",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"departure"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get departure by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/departure/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"departure",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create departure",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDQ5NTAwLCJpYXQiOjE3MTI0MzUxMDB9.hE-PelKQl6yXqUegfj9RvcR5rNSqHZPoGNolfCdMe0Oza_rOdbwLKk_RaY_AP9SHLAvJQX783YdGcyJaag3X7XD7qOsjrD_aVrrYKxb2F4UsjFknRAosNeQchK7bmTCGxEdUV_XK9itIkC1Pryz-zB7AGRsInZ_3MIZouCw9Z0ZXlYc0nAdqano15TmvOXI7_lHdkhmOlscffZVrqoBVly3emJHEvIpdka7J6OYbX2Xnyplsp-swPywgfQ3clEJth5GHLrtcRvxsz97NdnkYKyOngCAiZJM_xVrva7a5PmoTQrYU6rco_U5qiZFH7O9TZDKPcaAlwvv0EIhnCwu5XA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"departureDT\": \"2024-04-06T09:15:36\",\r\n    \"arrivalDT\": \"2024-04-07T09:15:36\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/departure/1/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"departure",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete departure",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzEyNDQ5NTAwLCJpYXQiOjE3MTI0MzUxMDB9.hE-PelKQl6yXqUegfj9RvcR5rNSqHZPoGNolfCdMe0Oza_rOdbwLKk_RaY_AP9SHLAvJQX783YdGcyJaag3X7XD7qOsjrD_aVrrYKxb2F4UsjFknRAosNeQchK7bmTCGxEdUV_XK9itIkC1Pryz-zB7AGRsInZ_3MIZouCw9Z0ZXlYc0nAdqano15TmvOXI7_lHdkhmOlscffZVrqoBVly3emJHEvIpdka7J6OYbX2Xnyplsp-swPywgfQ3clEJth5GHLrtcRvxsz97NdnkYKyOngCAiZJM_xVrva7a5PmoTQrYU6rco_U5qiZFH7O9TZDKPcaAlwvv0EIhnCwu5XA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/departure/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"departure",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Tatiana\",\r\n    \"lastName\" : \"Lorenzo\",\r\n    \"email\" : \"tat@iana.com\",\r\n    \"password\" : \"conTaseñ@1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"ant@onio.com\",\r\n    \"password\": \"conTaseñ@1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
