@@ -35,29 +35,41 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ResponseEntity<UserDTO> getUserById(Long userId) {
-        UserEntity user = userRepository.findById(userId).orElse(null);
-        if (user == null) return new ResponseEntity<>(new UserDTO(), HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(new UserDTO(user), HttpStatus.FOUND);
+        try {
+            UserEntity user = userRepository.findById(userId).orElse(null);
+            if (user == null) return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(user.ToDTO());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Override
     public ResponseEntity<List<UserDTO>> getAllUsers() {
-        List<UserEntity> users = userRepository.findAll();
-        List<UserDTO> userDTOS = new ArrayList<>();
-        if (users.isEmpty()) return new ResponseEntity<>(userDTOS, HttpStatus.NO_CONTENT);
-        for (UserEntity userEntity : users)
-            userDTOS.add(userEntity.ToDTO());
-        return new ResponseEntity<>(userDTOS, HttpStatus.FOUND);
+        try {
+            List<UserEntity> users = userRepository.findAll();
+            List<UserDTO> userDTOS = new ArrayList<>();
+            if (users.isEmpty()) return ResponseEntity.noContent().build();
+            for (UserEntity userEntity : users)
+                userDTOS.add(userEntity.ToDTO());
+            return ResponseEntity.ok(userDTOS);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Override
     public ResponseEntity<List<DepartureDTO>> getUserDepartures(Long userId) {
-        UserEntity user = userRepository.findById(userId).orElse(null);
-        if (user == null)
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
-        if (user.getDepartures().isEmpty())
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
-        return new ResponseEntity<>(user.getDeparturesDTOs(), HttpStatus.OK);
+        try {
+            UserEntity user = userRepository.findById(userId).orElse(null);
+            if (user == null)
+                return ResponseEntity.notFound().build();
+            if (user.getDepartures().isEmpty())
+                return ResponseEntity.noContent().build();
+            return ResponseEntity.ok(user.getDeparturesDTOs());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Override
@@ -75,7 +87,7 @@ public class UserServiceImpl implements IUserService {
         } catch (Exception e) {
             ResponseDTO response = new ResponseDTO();
             response.newError(e.toString());
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -111,13 +123,13 @@ public class UserServiceImpl implements IUserService {
             previousUser.setPassword(encoder.encode(updatedUser.getPassword()));
             userRepository.save(previousUser);
             response.newMessage(!Objects.equals(OGName, "NombreNoValido") ? "Usuario creado" : "Usuario actualizado");
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return ResponseEntity.ok(response);
         } catch (EntityNotFoundException e) {
             response.newError("Id no encontrada");
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         } catch (Exception e) {
             response.newError(e.toString());
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -134,13 +146,13 @@ public class UserServiceImpl implements IUserService {
             previousUser.setPassword(encoder.encode(passwordNew));
             userRepository.save(previousUser);
             response.newMessage("Contraseña actualizada");
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return ResponseEntity.ok(response);
         } catch (EntityNotFoundException e) {
             response.newError("Id no encontrada");
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         } catch (Exception e) {
             response.newError(e.toString());
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -150,10 +162,10 @@ public class UserServiceImpl implements IUserService {
         try {
             userRepository.deleteById(userId);
             response.newMessage("Usuario borrado");
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             response.newError(e.toString());
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

@@ -5,6 +5,7 @@ import com.nautico.usuarios.services.IAuthService;
 import com.nautico.usuarios.services.models.dtos.LoginDTO;
 import com.nautico.usuarios.services.models.dtos.ResponseDTO;
 import com.nautico.usuarios.services.models.dtos.UserDTO;
+import com.nautico.usuarios.services.models.dtos.JwtTokenDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,5 +38,10 @@ public class AuthControllers {
     @PostMapping("/login")
     private ResponseEntity<UserDTO> login(@RequestBody LoginDTO loginRequest) throws Exception {
         return authService.login(loginRequest);
+    }
+
+    @PostMapping("/loginsimple")
+    private ResponseEntity<JwtTokenDTO> loginSimple(@RequestBody LoginDTO loginRequest) throws Exception {
+        return authService.loginSimple(loginRequest);
     }
 }

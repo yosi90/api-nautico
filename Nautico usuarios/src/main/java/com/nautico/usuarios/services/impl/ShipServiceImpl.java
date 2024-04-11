@@ -35,27 +35,39 @@ public class ShipServiceImpl implements IShipService {
 
     @Override
     public ResponseEntity<ShipDTO> getShipById(Long userId) {
-        ShipEntity ship = shipRepository.findById(userId).orElse(null);
-        if (ship == null) return new ResponseEntity<>(new ShipDTO(), HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(new ShipDTO(ship), HttpStatus.FOUND);
+        try {
+            ShipEntity ship = shipRepository.findById(userId).orElse(null);
+            if (ship == null) return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(new ShipDTO(ship), HttpStatus.FOUND);
+        } catch (Exception e){
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Override
     public ResponseEntity<List<ShipDTO>> getAllShips() {
-        List<ShipEntity> ships = shipRepository.findAll();
-        List<ShipDTO> shipDTOS = new ArrayList<>();
-        if (ships.isEmpty()) return new ResponseEntity<>(shipDTOS, HttpStatus.NO_CONTENT);
-        for (ShipEntity shipEntity : ships)
-            shipDTOS.add(shipEntity.ToDTO());
-        return new ResponseEntity<>(shipDTOS, HttpStatus.FOUND);
+        try {
+            List<ShipEntity> ships = shipRepository.findAll();
+            if (ships.isEmpty()) return ResponseEntity.noContent().build();
+            List<ShipDTO> shipDTOS = new ArrayList<>();
+            for (ShipEntity shipEntity : ships)
+                shipDTOS.add(shipEntity.ToDTO());
+            return new ResponseEntity<>(shipDTOS, HttpStatus.FOUND);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Override
     public ResponseEntity<List<DepartureDTO>> getDepartures(Long shipId) {
-        ShipEntity ship = shipRepository.findById(shipId).orElse(null);
-        if (ship == null) return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
-        if (ship.getDepartures().isEmpty()) return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
-        return new ResponseEntity<>(ship.getDeparturesDTOs(), HttpStatus.OK);
+        try {
+            ShipEntity ship = shipRepository.findById(shipId).orElse(null);
+            if (ship == null) return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+            if (ship.getDepartures().isEmpty()) return ResponseEntity.noContent().build();
+            return new ResponseEntity<>(ship.getDeparturesDTOs(), HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Override
@@ -79,7 +91,7 @@ public class ShipServiceImpl implements IShipService {
         } catch (Exception e) {
             ResponseDTO response = new ResponseDTO();
             response.newError(e.toString());
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -110,13 +122,13 @@ public class ShipServiceImpl implements IShipService {
             previousShip.setFee(updatedShip.getFee());
             shipRepository.save(previousShip);
             response.newMessage("Embarcación actualizada");
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return ResponseEntity.ok(response);
         } catch (EntityNotFoundException e) {
             response.newError("Id no encontrada");
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             response.newError(e.toString());
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -134,14 +146,14 @@ public class ShipServiceImpl implements IShipService {
                 shipRepository.save(ship);
                 shipRepository.deleteByShipId(ship.getId());
                 response.newMessage("Embarcación eliminada");
-                return new ResponseEntity<>(response, HttpStatus.OK);
+                return ResponseEntity.ok(response);
             } else {
                 response.newMessage("Embarcación no encontrada");
                 return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
             response.newError(e.toString());
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

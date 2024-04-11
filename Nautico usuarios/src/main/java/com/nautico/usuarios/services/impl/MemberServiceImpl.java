@@ -29,37 +29,49 @@ public class MemberServiceImpl implements IMemberService {
 
     @Override
     public ResponseEntity<MemberDTO> getMemberById(Long memberId) {
-        MemberEntity partner = memberRepository.findById(memberId).orElse(null);
-        if (partner == null)
-            return new ResponseEntity<>(new MemberDTO(), HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(new MemberDTO(partner), HttpStatus.FOUND);
+        try {
+            MemberEntity partner = memberRepository.findById(memberId).orElse(null);
+            if (partner == null)
+                return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(new MemberDTO(partner), HttpStatus.FOUND);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Override
     public ResponseEntity<List<MemberDTO>> getAllMembers() {
-        List<MemberEntity> members = memberRepository.findAll();
-        List<MemberDTO> memberDTOS = new ArrayList<>();
-        if (members.isEmpty())
-            return new ResponseEntity<>(memberDTOS, HttpStatus.NO_CONTENT);
-        for (MemberEntity memberEntity : members)
-            memberDTOS.add(memberEntity.ToDTO());
-        return new ResponseEntity<>(memberDTOS, HttpStatus.FOUND);
+        try {
+            List<MemberEntity> members = memberRepository.findAll();
+            List<MemberDTO> memberDTOS = new ArrayList<>();
+            if (members.isEmpty())
+                return new ResponseEntity<>(memberDTOS, HttpStatus.NO_CONTENT);
+            for (MemberEntity memberEntity : members)
+                memberDTOS.add(memberEntity.ToDTO());
+            return new ResponseEntity<>(memberDTOS, HttpStatus.FOUND);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Override
     public ResponseEntity<List<ShipDTO>> getMemberShips(Long memberId) {
-        MemberEntity member = memberRepository.findById(memberId).orElse(null);
-        if (member == null)
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
-        if(member.getShips().isEmpty())
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
-        return new ResponseEntity<>(member.getShipDTOs(), HttpStatus.OK);
+        try {
+            MemberEntity member = memberRepository.findById(memberId).orElse(null);
+            if (member == null)
+                return ResponseEntity.notFound().build();
+            if (member.getShips().isEmpty())
+                return ResponseEntity.noContent().build();
+            return ResponseEntity.ok(member.getShipDTOs());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Override
     public ResponseEntity<ResponseDTO> addMember(Long userId) {
-        ResponseDTO response = new ResponseDTO();
         try {
+            ResponseDTO response = new ResponseDTO();
             Optional<UserEntity> user = memberRepository.findUserByUserId(userId);
             if (user.isPresent()) {
                 response.newError("Usuario ya dado de alta como miembro");
@@ -71,14 +83,11 @@ public class MemberServiceImpl implements IMemberService {
                 member.setUser(user.get());
                 memberRepository.save(member);
                 response.newMessage("El usuario ahora es miembro");
-                return new ResponseEntity<>(response, HttpStatus.OK);
-            } else {
-                response.newError("Usuario no encontrado");
-                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-            }
+                return ResponseEntity.ok(response);
+            } else
+                return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            response.newError(e.toString());
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -98,22 +107,20 @@ public class MemberServiceImpl implements IMemberService {
     }
 
     private ResponseEntity<ResponseDTO> remove(Optional<MemberEntity> memberEntity) {
-        ResponseDTO response = new ResponseDTO();
+
         try {
+            ResponseDTO response = new ResponseDTO();
             if (memberEntity.isPresent()) {
                 MemberEntity member = memberEntity.get();
                 member.setUser(null);
                 memberRepository.save(member);
                 memberRepository.deleteByMemberId(member.getId());
                 response.newMessage("Miembro eliminado");
-                return new ResponseEntity<>(response, HttpStatus.OK);
-            } else {
-                response.newMessage("Miembro no encontrado");
-                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-            }
+                return ResponseEntity.ok(response);
+            } else
+                return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            response.newError(e.toString());
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

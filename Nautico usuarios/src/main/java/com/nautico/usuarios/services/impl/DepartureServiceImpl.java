@@ -38,19 +38,27 @@ public class DepartureServiceImpl implements IDepartureService {
 
     @Override
     public ResponseEntity<DepartureDTO> getDepartureById(Long departureId) {
-        DepartureEntity departure = departureRepository.findById(departureId).orElse(null);
-        if (departure == null) return new ResponseEntity<>(new DepartureDTO(), HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(new DepartureDTO(departure), HttpStatus.FOUND);
+        try {
+            DepartureEntity departure = departureRepository.findById(departureId).orElse(null);
+            if (departure == null) return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(new DepartureDTO(departure), HttpStatus.FOUND);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Override
     public ResponseEntity<List<DepartureDTO>> getAllDepartures() {
-        List<DepartureEntity> departures = departureRepository.findAll();
-        List<DepartureDTO> departureDTOS = new ArrayList<>();
-        if (departures.isEmpty()) return new ResponseEntity<>(departureDTOS, HttpStatus.NO_CONTENT);
-        for (DepartureEntity departureEntity : departures)
-            departureDTOS.add(departureEntity.ToDTO());
-        return new ResponseEntity<>(departureDTOS, HttpStatus.FOUND);
+        try {
+            List<DepartureEntity> departures = departureRepository.findAll();
+            List<DepartureDTO> departureDTOS = new ArrayList<>();
+            if (departures.isEmpty()) return ResponseEntity.noContent().build();
+            for (DepartureEntity departureEntity : departures)
+                departureDTOS.add(departureEntity.ToDTO());
+            return new ResponseEntity<>(departureDTOS, HttpStatus.FOUND);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @Override
@@ -58,10 +66,8 @@ public class DepartureServiceImpl implements IDepartureService {
         try {
             ResponseDTO response = new ResponseDTO();
             Optional<ShipEntity> ship = shipRepository.findById(shipId);
-            if (ship.isEmpty()) {
-                response.newError("Barco no encontrado");
-                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-            }
+            if (ship.isEmpty())
+                return ResponseEntity.notFound().build();
             List<DepartureEntity> conflictingDeparturesForShip = departureRepository.findConflictingDeparturesForShip(ship.get(),
                     departureNew.getDepartureDT(),
                     departureNew.getArrivalDT() == null ? departureNew.getDepartureDT() : departureNew.getArrivalDT());
@@ -70,10 +76,8 @@ public class DepartureServiceImpl implements IDepartureService {
                 return new ResponseEntity<>(response, HttpStatus.CONFLICT);
             }
             Optional<UserEntity> skipper = userRepository.findById(userId);
-            if (skipper.isEmpty()) {
-                response.newError("Patrón del barco no encontrado");
-                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-            }
+            if (skipper.isEmpty())
+                return ResponseEntity.notFound().build();
             List<DepartureEntity> conflictingDeparturesForSkipper =
                     departureRepository.findConflictingDeparturesForSkipper(skipper.get(),
                             departureNew.getDepartureDT(),
@@ -90,11 +94,9 @@ public class DepartureServiceImpl implements IDepartureService {
             departureNew.setShip(ship.get());
             departureRepository.save(departureNew);
             response.newMessage("Se ha creado la salida");
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
-            ResponseDTO response = new ResponseDTO();
-            response.newError(e.toString());
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -109,13 +111,11 @@ public class DepartureServiceImpl implements IDepartureService {
             previousDeparture.setSkipper(updatedDeparture.getSkipper());
             departureRepository.save(previousDeparture);
             response.newMessage("Salida actualizada");
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return ResponseEntity.ok(response);
         } catch (EntityNotFoundException e) {
-            response.newError("Salida previa no encontrada");
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            response.newError(e.toString());
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -130,14 +130,11 @@ public class DepartureServiceImpl implements IDepartureService {
                 departureRepository.save(departure);
                 departureRepository.deleteByDepartureId(departure.getId());
                 response.newMessage("Miembro eliminado");
-                return new ResponseEntity<>(response, HttpStatus.OK);
-            } else {
-                response.newMessage("Miembro no encontrado");
-                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-            }
+                return ResponseEntity.ok(response);
+            } else
+                return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            response.newError(e.toString());
-            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

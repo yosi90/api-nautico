@@ -27,25 +27,25 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())//Deshabilitamos la seguridad por defecto de Spring
-                        .authorizeHttpRequests(authRequest ->
-                                authRequest
-                                        .requestMatchers("/auth/**").permitAll() //Damos paso a solicitudes de autenticación, revisamos el resto
-                                        .anyRequest().authenticated()
-                        ).sessionManagement(sessionManager ->
-                                sessionManager
-                                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                        ).addFilterBefore(new JWTAuthorizationFilter(jwtUtilityService),
-        UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(authRequest ->
+                        authRequest
+                                .requestMatchers("/auth/**").permitAll() //Damos paso a solicitudes de autenticación, revisamos el resto
+                                .anyRequest().authenticated()
+                ).sessionManagement(sessionManager ->
+                        sessionManager
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                ).addFilterBefore(new JWTAuthorizationFilter(jwtUtilityService),
+                        UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionHandling ->
-                                exceptionHandling
-                                        .authenticationEntryPoint((request, response, authException) -> {
-                                                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-                                        }))
+                        exceptionHandling
+                                .authenticationEntryPoint((request, response, authException) -> {
+                                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+                                }))
                 .build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return  new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

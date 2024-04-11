@@ -5,6 +5,7 @@ import com.nautico.usuarios.persistence.repositories.UserRepository;
 import com.nautico.usuarios.services.IAuthService;
 import com.nautico.usuarios.services.IJWTUtilityService;
 import com.nautico.usuarios.services.IUserService;
+import com.nautico.usuarios.services.models.dtos.JwtTokenDTO;
 import com.nautico.usuarios.services.models.dtos.LoginDTO;
 import com.nautico.usuarios.services.models.dtos.ResponseDTO;
 import com.nautico.usuarios.services.models.dtos.UserDTO;
@@ -35,18 +36,38 @@ public class AuthServiceImpl implements IAuthService {
         try {
             Optional<UserEntity> userOPT = userRepository.findByEmail(login.getEmail());
             if (userOPT.isEmpty())
-                return new ResponseEntity<>(new UserDTO(), HttpStatus.NOT_FOUND);
+                return ResponseEntity.notFound().build();
             else {
                 UserEntity user = userOPT.get();
                 if (verifyPassword(login.getPassword(), user.getPassword())) {
                     UserDTO userDTO = new UserDTO(user);
                     userDTO.setJWT(jwtUtilityService.generateJWT(user.getId()));
-                    return new ResponseEntity<>(userDTO, HttpStatus.OK);
+                    return ResponseEntity.ok(userDTO);
                 } else
-                    return new ResponseEntity<>(new UserDTO(), HttpStatus.INTERNAL_SERVER_ERROR);
+                    return ResponseEntity.internalServerError().build();
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(new UserDTO(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @Override
+    public ResponseEntity<JwtTokenDTO> loginSimple(LoginDTO login) throws Exception {
+        try {
+            Optional<UserEntity> userOPT = userRepository.findByEmail(login.getEmail());
+            if (userOPT.isEmpty())
+                return ResponseEntity.notFound().build();
+            else {
+                UserEntity user = userOPT.get();
+                if (verifyPassword(login.getPassword(), user.getPassword())) {
+                    JwtTokenDTO jwtTokenDTO = new JwtTokenDTO(jwtUtilityService.generateJWT(user.getId()));
+                    return ResponseEntity.ok(jwtTokenDTO);
+                }
+                else
+                    return ResponseEntity.internalServerError().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 
