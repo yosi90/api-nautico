@@ -14,5 +14,7 @@ public interface IAuthService {
 
     ResponseEntity<JwtTokenDTO> loginSimple(LoginDTO login) throws Exception;
 
-    ResponseEntity<ResponseDTO> register(UserEntity user) throws Exception;
+    ResponseEntity<ResponseDTO> registerUser(UserEntity user) throws Exception;
+
+    ResponseEntity<ResponseDTO> registerMember(UserEntity user) throws Exception;
 }

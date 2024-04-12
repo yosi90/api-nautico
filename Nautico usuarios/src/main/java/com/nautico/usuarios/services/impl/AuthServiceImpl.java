@@ -4,6 +4,7 @@ import com.nautico.usuarios.persistence.entities.UserEntity;
 import com.nautico.usuarios.persistence.repositories.UserRepository;
 import com.nautico.usuarios.services.IAuthService;
 import com.nautico.usuarios.services.IJWTUtilityService;
+import com.nautico.usuarios.services.IMemberService;
 import com.nautico.usuarios.services.IUserService;
 import com.nautico.usuarios.services.models.dtos.JwtTokenDTO;
 import com.nautico.usuarios.services.models.dtos.LoginDTO;
@@ -62,8 +63,7 @@ public class AuthServiceImpl implements IAuthService {
                 if (verifyPassword(login.getPassword(), user.getPassword())) {
                     JwtTokenDTO jwtTokenDTO = new JwtTokenDTO(jwtUtilityService.generateJWT(user.getId()));
                     return ResponseEntity.ok(jwtTokenDTO);
-                }
-                else
+                } else
                     return ResponseEntity.internalServerError().build();
             }
         } catch (Exception e) {
@@ -77,7 +77,12 @@ public class AuthServiceImpl implements IAuthService {
     }
 
     @Override
-    public ResponseEntity<ResponseDTO> register(UserEntity userNew) {
-        return userService.createUser(userNew);
+    public ResponseEntity<ResponseDTO> registerUser(UserEntity userNew) {
+        return userService.registerUser(userNew);
+    }
+
+    @Override
+    public ResponseEntity<ResponseDTO> registerMember(UserEntity userNew) {
+        return userService.registerMember(userNew);
     }
 }

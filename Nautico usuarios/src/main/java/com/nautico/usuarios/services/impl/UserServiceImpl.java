@@ -5,6 +5,7 @@ import com.nautico.usuarios.persistence.entities.MemberEntity;
 import com.nautico.usuarios.persistence.entities.ShipEntity;
 import com.nautico.usuarios.persistence.entities.UserEntity;
 import com.nautico.usuarios.persistence.repositories.UserRepository;
+import com.nautico.usuarios.services.IMemberService;
 import com.nautico.usuarios.services.IUserService;
 import com.nautico.usuarios.services.models.dtos.DepartureDTO;
 import com.nautico.usuarios.services.models.dtos.ResponseDTO;
@@ -24,6 +25,9 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements IUserService {
+
+    @Autowired
+    private IMemberService memberService;
 
     private final UserRepository userRepository;
 
@@ -91,6 +95,44 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    @Override
+    public ResponseEntity<ResponseDTO> registerUser(UserEntity userNew) {
+        try {
+            ResponseDTO response = new ResponseDTO();
+            Optional<UserEntity> existingUser = userRepository.findByEmail(userNew.getEmail());
+            if (existingUser.isPresent()) {
+                response.newError("Email ya registrado");
+                return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+            }
+            UserEntity userTEMP = findUpdatableUser();
+            Optional<UserEntity> userOPT = updatedUser(userTEMP.getId(), userNew);
+            if(userOPT.isEmpty())
+                return ResponseEntity.unprocessableEntity().build();
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @Override
+    public ResponseEntity<ResponseDTO> registerMember(UserEntity userNew) {
+        try {
+            ResponseDTO response = new ResponseDTO();
+            Optional<UserEntity> existingUser = userRepository.findByEmail(userNew.getEmail());
+            if (existingUser.isPresent()) {
+                response.newError("Email ya registrado");
+                return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+            }
+            UserEntity userTEMP = findUpdatableUser();
+            Optional<UserEntity> userOPT = updatedUser(userTEMP.getId(), userNew);
+            if(userOPT.isEmpty())
+                return ResponseEntity.unprocessableEntity().build();
+            return memberService.addMember(userOPT.get().getId());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
     private UserEntity findUpdatableUser() {
         int threshold = 3600;
         Optional<UserEntity> userUpdatable = userRepository.findFirstUpdatable(threshold);
@@ -130,6 +172,26 @@ public class UserServiceImpl implements IUserService {
         } catch (Exception e) {
             response.newError(e.toString());
             return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    private Optional<UserEntity> updatedUser(Long id, UserEntity updatedUser) {
+        ResponseDTO response = new ResponseDTO();
+        try {
+            UserEntity previousUser = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+            previousUser.setLifeSpan(updatedUser.getLifeSpan().plusYears(100));
+            String OGName = previousUser.getName();
+            previousUser.setName(updatedUser.getName());
+            previousUser.setLastName(updatedUser.getLastName());
+            previousUser.setEmail(updatedUser.getEmail());
+            if (!updatedUser.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#ñÑ])[A-Za-z\\d@$!%*?&#ñÑ]{8,}$")) {
+                return Optional.empty();
+            }
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+            previousUser.setPassword(encoder.encode(updatedUser.getPassword()));
+            return Optional.of(userRepository.save(previousUser));
+        } catch (Exception e) {
+            return Optional.empty();
         }
     }
 

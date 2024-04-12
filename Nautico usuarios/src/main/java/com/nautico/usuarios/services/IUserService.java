@@ -18,6 +18,10 @@ public interface IUserService {
 
     ResponseEntity<ResponseDTO> createUser(UserEntity userNew);
 
+    ResponseEntity<ResponseDTO> registerUser(UserEntity userNew);
+
+    ResponseEntity<ResponseDTO> registerMember(UserEntity userNew);
+
     ResponseEntity<ResponseDTO> updateUser(Long id, UserEntity updatedUser);
 
     ResponseEntity<ResponseDTO> updatePassword(Long id, String newPassword);

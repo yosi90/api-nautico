@@ -24,15 +24,26 @@ public class AuthControllers {
     @Autowired
     IAuthService authService;
 
-    @PostMapping("/register")
-    private ResponseEntity<ResponseDTO> register(@RequestBody @Valid UserEntity userNew, BindingResult result) throws Exception {
+    @PostMapping("/registerUser")
+    private ResponseEntity<ResponseDTO> registerUser(@RequestBody @Valid UserEntity userNew, BindingResult result) throws Exception {
         if (result != null && result.hasErrors()) {
             ResponseDTO response = new ResponseDTO();
             for (FieldError error : result.getFieldErrors())
                 response.newError(String.format("%s: %s", error.getField(), error.getDefaultMessage()));
             return new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE);
         }
-        return authService.register(userNew);
+        return authService.registerUser(userNew);
+    }
+
+    @PostMapping("/registerMember")
+    private ResponseEntity<ResponseDTO> registerMember(@RequestBody @Valid UserEntity userNew, BindingResult result) throws Exception {
+        if (result != null && result.hasErrors()) {
+            ResponseDTO response = new ResponseDTO();
+            for (FieldError error : result.getFieldErrors())
+                response.newError(String.format("%s: %s", error.getField(), error.getDefaultMessage()));
+            return new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE);
+        }
+        return authService.registerMember(userNew);
     }
 
     @PostMapping("/login")

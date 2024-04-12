@@ -16,7 +16,6 @@ public class UserDTO extends DTOCosmicEntity {
     private String lastName;
     private String email;
     private Boolean isMember;
-    private String jwt;
 
     public UserDTO(UserEntity user) {
         userId = user.getId();
@@ -38,9 +37,5 @@ public class UserDTO extends DTOCosmicEntity {
                 .buildAndExpand(userId)
                 .toUriString();
         newURI("DeparturesAsSkipper", departuresUri);
-    }
-
-    public void setJWT(String Token) {
-        this.jwt = Token;
     }
 }
